@@ -137,4 +137,26 @@ int MC_API_GetGreenLaserPower(SharedMemory_handle sm){
 }
 
 
+/*
+ *
+ * Returns MC_API_OK or
+ * Returns MC_API_ERROR otherwise
+ *
+ */
+
+SharedMemory_handle MC_API_StartClient(){
+	SharedMemory_handle sm = ip_CreateSharedMemoryClient("mcMem");
+	return sm;
+
+}
+
+/*
+ * Returns MC_API_OK or
+ * Returns MC_API_ERROR otherwise
+ *
+ */
+int MC_API_StopClient(SharedMemory_handle sm){
+	if (ip_CloseSharedMemory(sm)!=MC_API_OK) return MC_API_ERROR;
+	return MC_API_OK;
+}
 

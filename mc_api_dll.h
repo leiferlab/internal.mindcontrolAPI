@@ -9,6 +9,19 @@
 #define MC_API_DLL_H_
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+
+#ifdef BUILDING_MC_API_DLL
+#define MC_API_DLL __declspec(dllexport)
+#else
+#define MC_API_DLL __declspec(dllimport)
+#endif
+
+
 
 
 #define MC_API_OK 0
@@ -55,14 +68,14 @@ int MC_API_StopServer(SharedMemory_handle sm);
  *
  */
 
-int MC_API_StartClient();
+SharedMemory_handle MC_API_StartClient();
 
 /*
  * Returns MC_API_OK or
  * Returns MC_API_ERROR otherwise
  *
  */
-int MC_API_StopClient();
+int MC_API_StopClient(SharedMemory_handle sm);
 
 /*
  *  Registers the presence of a laser controller software
@@ -90,6 +103,8 @@ int MC_API_UnRegisterLaserController();
 
 /*
  *  Set the Laser Power, an integer value between 1 and 100
+ *  Returns MC_API_OK
+ *  Returns MC_API_ERROR if error.
  */
 int MC_API_SetGreenLaserPower(SharedMemory_handle sm, int power);
 int MC_API_SetBlueLaserPower(SharedMemory_handle sm, int power);
@@ -100,6 +115,11 @@ int MC_API_SetBlueLaserPower(SharedMemory_handle sm, int power);
  */
 int MC_API_GetGreenLaserPower(SharedMemory_handle sm);
 int MC_API_GetBlueLaserPower(SharedMemory_handle sm);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 
 
