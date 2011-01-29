@@ -39,3 +39,7 @@ MC_API_SetDLPOnOff()
 
 
 The client can access all other functions.
+
+A .zip file of precompiled binaries of the samples and DLL can be found in the 
+download sections, although you should check the commit number to make sure it is
+up to date.
