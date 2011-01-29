@@ -3,15 +3,16 @@ CXX=g++
 CXXFLAGS= -c -v -Wall -mwindows
 
 MC_API_targetdir=bin
+MC_API_sampledir=samples
 
 #interprocess directories
 IP_dir=InterProcess
 IP_targetdir=$(IP_dir)/bin
 
 
-
-all: $(MC_API_targetdir)/mc_api.dll
+all: $(MC_API_targetdir)/mc_api.dll samples interprocess
 interprocess: $(IP_targetdir)/interprocess.o
+samples: $(MC_API_targetdir)/mc_client.exe $(MC_API_targetdir)/mc_host.exe
 
 #Make the wrapper API
 mc_api_dll.o:  mc_api_dll.c mc_api_dll.h 
@@ -20,7 +21,7 @@ mc_api_dll.o:  mc_api_dll.c mc_api_dll.h
 	
 #Make the actual DLL
 $(MC_API_targetdir)/mc_api.dll: mc_api_dll.o $(IP_targetdir)/interprocess.o 
-	$(CXX) -shared -o mc_api.dll mc_api_dll.o $(IP_targetdir)/interprocess.o -Wl,--out-implib,mc_api.a 
+	$(CXX) -shared -o $(MC_API_targetdir)/mc_api.dll mc_api_dll.o $(IP_targetdir)/interprocess.o -Wl,--out-implib,mc_api.a 
 	
 #Make the underlying interprocess routine
 $(IP_targetdir)/interprocess.o: 
@@ -28,12 +29,29 @@ $(IP_targetdir)/interprocess.o:
 
 
 
+#Make the samples: host
+$(MC_API_targetdir)/mc_host.exe: $(MC_API_targetdir)/mc_api.dll mc_host.o
+	$(CXX) -o $(MC_API_targetdir)/mc_host.exe mc_host.o -L$(MC_API_targetdir) -lmc_api
+		
+
+mc_host.o: $(MC_API_sampledir)/mc_host.c
+	$(CXX) $(CXXFLAGS) $(MC_API_sampledir)/mc_host.c
+	
+$(MC_API_targetdir)/mc_client.exe:
+	echo "yo"
+
+	
+
+
+
+
 .PHONY: run
 run:
+	$(MC_API_targetdir)/mc_host.exe
 	start $(IP_targetdir)/host.exe 
 	$(IP_targetdir)/client.exe
 	
 	
 .PHONY: clean
 clean:	
-	rm -rf *.o 
+	rm -rf *.o *.dll *.a 

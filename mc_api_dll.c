@@ -5,6 +5,7 @@
  *      Author: andy
  */
 
+#include <stdio.h>
 #include "InterProcess/src/interprocess.h"
 #include "mc_api_dll.h"
 
@@ -27,6 +28,7 @@ SharedMemory_handle  MC_API_StartServer(){
 	int val=0;
 	ip_WriteValue(sm,"int_laserController",(void *) &val, sizeof(int));
 	return sm;
+
 }
 
 /*
