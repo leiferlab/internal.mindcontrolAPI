@@ -128,10 +128,30 @@ int MC_API_SetCurrentFrame(SharedMemory_handle sm, int frame);
 
 /*
  * Get current frame
- *  Returns MC_API_OK
+ *  Returns frame number
  *  Returns MC_API_ERROR if error.
  */
 int MC_API_GetCurrentFrame(SharedMemory_handle sm);
+
+/*
+ * Set DLP on/off
+ *  Returns MC_API_OK
+ *  Returns MC_API_ERROR if error.
+ */
+int MC_API_SetDLPOnOff(SharedMemory_handle sm, int isOn);
+
+
+/*
+ * Get DLP on/off
+ *  Returns 1 if on
+ *  Returns 0 if off
+ *  Returns MC_API_ERROR if error.
+ */
+int MC_API_GetDLPOnOff(SharedMemory_handle sm);
+
+
+
+
 
 
 

@@ -37,7 +37,8 @@ int main(){
 		printf("Setting blue to %d, and green to %d.\n",b,g);
 		int f=MC_API_GetCurrentFrame(sm);
 		printf("Current frame is %d\n",f);
-
+		int dlp=MC_API_GetDLPOnOff(sm);
+		printf("DLP is %d\n",dlp);
 	}
 
 	printf("Stopping client.. %d\n",MC_API_StopClient(sm));

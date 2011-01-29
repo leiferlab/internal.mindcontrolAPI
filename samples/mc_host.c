@@ -24,6 +24,9 @@ int main(){
 		printf("Frame number is %d\n",k);
 		MC_API_SetCurrentFrame(sm,k);
 
+		printf("Setting DLP %d\n", k % 2);
+		MC_API_SetDLPOnOff(sm,k%2);
+
 		if (MC_API_isLaserControllerPresent(sm)== MC_API_TRUE){
 			printf("Laser Controller present! Power is Green %d, Blue %d\n",MC_API_GetGreenLaserPower(sm), MC_API_GetBlueLaserPower(sm) );
 		} else{
