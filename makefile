@@ -54,4 +54,5 @@ run:
 	
 .PHONY: clean
 clean:	
-	rm -rf *.o *.dll *.a 
+	rm -rfv *.o *.dll *.a 
+	rm -fv $(IP_targetdir)/interprocess.o
