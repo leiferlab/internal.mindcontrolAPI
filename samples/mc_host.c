@@ -12,13 +12,24 @@
 
 int main(){
 	printf("Starting server.\n");
+	/** Start the server**/
 	SharedMemory_handle sm=MC_API_StartServer();
-	int val=MC_API_isLaserControllerPresent(sm);
-	printf("Is laser controller present?: %d\n",val);
+
+	int k=0;
+	int max=10;
+	for (k = 0; k < max; ++k) {
+		printf("Hit enter  to continue (%d of %d)\n",k,max);
+		getch();
+		if (MC_API_isLaserControllerPresent(sm)== MC_API_TRUE){
+			printf("Laser Controller present! Power is Green %d, Blue %d\n",MC_API_GetGreenLaserPower(sm), MC_API_GetBlueLaserPower(sm) );
+		} else{
+			printf("Laser Controller is not present.\n");
+		}
+
+	}
 
 	printf("Stopping server.. %d\n",MC_API_StopServer(sm));
 	printf("Goodbye!");
-
 
 
 

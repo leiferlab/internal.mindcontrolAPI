@@ -36,10 +36,13 @@ $(MC_API_targetdir)/mc_host.exe: $(MC_API_targetdir)/mc_api.dll mc_host.o
 
 mc_host.o: $(MC_API_sampledir)/mc_host.c
 	$(CXX) $(CXXFLAGS) $(MC_API_sampledir)/mc_host.c
-	
-$(MC_API_targetdir)/mc_client.exe:
-	echo "yo"
 
+#Make the samples: client	
+$(MC_API_targetdir)/mc_client.exe: mc_client.o
+	$(CXX) -o $(MC_API_targetdir)/mc_client.exe mc_client.o -L$(MC_API_targetdir) -lmc_api	
+
+mc_client.o: $(MC_API_sampledir)/mc_client.c
+	$(CXX) $(CXXFLAGS) $(MC_API_sampledir)/mc_client.c
 	
 
 
@@ -47,9 +50,11 @@ $(MC_API_targetdir)/mc_client.exe:
 
 .PHONY: run
 run:
-	$(MC_API_targetdir)/mc_host.exe
-	start $(IP_targetdir)/host.exe 
-	$(IP_targetdir)/client.exe
+	start $(MC_API_targetdir)/mc_host.exe
+	$(MC_API_targetdir)/mc_client.exe
+	
+#	start $(IP_targetdir)/host.exe 
+#	$(IP_targetdir)/client.exe
 	
 	
 .PHONY: clean
