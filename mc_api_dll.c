@@ -42,6 +42,36 @@ int MC_API_StopServer(SharedMemory_handle sm){
 	return ip_CloseSharedMemory(sm);
 }
 
+/********  Start/Stop CLIENT ****/
+
+/*
+ *
+ * Returns MC_API_OK or
+ * Returns MC_API_ERROR otherwise
+ *
+ */
+
+SharedMemory_handle MC_API_StartClient(){
+	SharedMemory_handle sm = ip_CreateSharedMemoryClient("mcMem");
+	return sm;
+
+}
+
+/*
+ * Returns MC_API_OK or
+ * Returns MC_API_ERROR otherwise
+ *
+ */
+int MC_API_StopClient(SharedMemory_handle sm){
+	if (ip_CloseSharedMemory(sm)!=MC_API_OK) return MC_API_ERROR;
+	return MC_API_OK;
+}
+
+
+
+
+
+/*** Laser Power **/
 
 /*
  * Check to see if laser controller is present
@@ -119,7 +149,7 @@ int MC_API_SetBlueLaserPower(SharedMemory_handle sm, int power){
  * Returns MC_API_ERROR if the value cannot be acquired.
  */
 int MC_API_GetBlueLaserPower(SharedMemory_handle sm){
-	int val;
+	int val=0;
 	int ret=ip_ReadValue(sm,"int_blueLaserPower",(void *) &val);
 	if (ret!=MC_API_OK) return MC_API_ERROR;
 
@@ -132,33 +162,39 @@ int MC_API_GetBlueLaserPower(SharedMemory_handle sm){
  * Returns MC_API_ERROR if the value cannot be acquired.
  */
 int MC_API_GetGreenLaserPower(SharedMemory_handle sm){
-	int val;
+	int val=0;
 	int ret=ip_ReadValue(sm,"int_greenLaserPower",(void *) &val);
 	if (ret!=MC_API_OK) return MC_API_ERROR;
 	return val;
 }
 
+/** Current Frame **/
 
 /*
- *
- * Returns MC_API_OK or
- * Returns MC_API_ERROR otherwise
- *
+ * Set current frame
+ *  Returns MC_API_OK
+ *  Returns MC_API_ERROR if error.
  */
-
-SharedMemory_handle MC_API_StartClient(){
-	SharedMemory_handle sm = ip_CreateSharedMemoryClient("mcMem");
-	return sm;
-
-}
-
-/*
- * Returns MC_API_OK or
- * Returns MC_API_ERROR otherwise
- *
- */
-int MC_API_StopClient(SharedMemory_handle sm){
-	if (ip_CloseSharedMemory(sm)!=MC_API_OK) return MC_API_ERROR;
+int MC_API_SetCurrentFrame(SharedMemory_handle sm, int frame){
+	int ret=ip_WriteValue(sm,"int_currFrame",(void *) &frame, sizeof(int));
+	if (ret!=MC_API_OK) return MC_API_ERROR;
 	return MC_API_OK;
 }
+
+
+/*
+ * Get current frame
+ *  Returns MC_API_OK
+ *  Returns MC_API_ERROR if error.
+ */
+int MC_API_GetCurrentFrame(SharedMemory_handle sm){
+	int val=0;
+	int ret=ip_ReadValue(sm,"int_currFrame",(void *) &val);
+	if (ret!=MC_API_OK) return MC_API_ERROR;
+	return val;
+
+}
+
+
+
 

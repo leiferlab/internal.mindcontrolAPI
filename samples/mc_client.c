@@ -35,6 +35,8 @@ int main(){
 		MC_API_SetGreenLaserPower(sm, g);
 		MC_API_SetBlueLaserPower(sm, b);
 		printf("Setting blue to %d, and green to %d.\n",b,g);
+		int f=MC_API_GetCurrentFrame(sm);
+		printf("Current frame is %d\n",f);
 
 	}
 

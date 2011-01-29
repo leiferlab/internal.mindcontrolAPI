@@ -117,6 +117,24 @@ int MC_API_GetGreenLaserPower(SharedMemory_handle sm);
 int MC_API_GetBlueLaserPower(SharedMemory_handle sm);
 
 
+
+/*
+ * Set current frame
+ *  Returns MC_API_OK
+ *  Returns MC_API_ERROR if error.
+ */
+int MC_API_SetCurrentFrame(SharedMemory_handle sm, int frame);
+
+
+/*
+ * Get current frame
+ *  Returns MC_API_OK
+ *  Returns MC_API_ERROR if error.
+ */
+int MC_API_GetCurrentFrame(SharedMemory_handle sm);
+
+
+
 #ifdef __cplusplus
 }
 #endif

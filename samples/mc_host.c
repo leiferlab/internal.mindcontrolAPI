@@ -20,11 +20,16 @@ int main(){
 	for (k = 0; k < max; ++k) {
 		printf("Hit enter  to continue (%d of %d)\n",k,max);
 		getch();
+
+		printf("Frame number is %d\n",k);
+		MC_API_SetCurrentFrame(sm,k);
+
 		if (MC_API_isLaserControllerPresent(sm)== MC_API_TRUE){
 			printf("Laser Controller present! Power is Green %d, Blue %d\n",MC_API_GetGreenLaserPower(sm), MC_API_GetBlueLaserPower(sm) );
 		} else{
 			printf("Laser Controller is not present.\n");
 		}
+
 
 	}
 
