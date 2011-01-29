@@ -18,9 +18,10 @@ int main(){
 	int k=0;
 	int max=10;
 	for (k = 0; k < max; ++k) {
+
 		printf("Hit enter  to continue (%d of %d)\n",k,max);
 		getch();
-
+		printf("\n\n=====================\n");
 		printf("Frame number is %d\n",k);
 		MC_API_SetCurrentFrame(sm,k);
 

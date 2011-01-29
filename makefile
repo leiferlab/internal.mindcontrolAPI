@@ -47,7 +47,7 @@ mc_client.o: $(MC_API_sampledir)/mc_client.c
 
 
 
-
+	
 .PHONY: run
 run:
 	start $(MC_API_targetdir)/mc_host.exe

@@ -30,6 +30,7 @@ int main(){
 	for (k = 0; k < max; ++k) {
 		printf("Hit enter  to continue (%d of %d)\n",k,max);
 		getch();
+		printf("\n\n=====================\n");
 		g=k;
 		b=2*k;
 		MC_API_SetGreenLaserPower(sm, g);
