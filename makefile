@@ -25,7 +25,7 @@ $(MC_API_targetdir)/mc_api.dll: mc_api_dll.o $(IP_targetdir)/interprocess.o
 	
 #Make the underlying interprocess routine
 $(IP_targetdir)/interprocess.o: 
-	cd $(IP_dir) && make all && cd ..
+	cd $(IP_dir) && make clean && make all && cd ..
 
 
 
