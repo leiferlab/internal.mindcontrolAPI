@@ -222,5 +222,14 @@ int MC_API_GetDLPOnOff(SharedMemory_handle sm){
 	return val;
 }
 
+/*
+ * Returns MC_API_OK if server is running
+ * Returns MC_API_ERROR otherwise
+ */
+int MC_API_PingServer(SharedMemory_handle sm){
+	if (ip_GetSharedMemoryStatus(sm) >= 0) return MC_API_OK;
+	return MC_API_ERROR;
+}
+
 
 
