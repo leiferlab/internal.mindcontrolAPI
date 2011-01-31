@@ -45,9 +45,8 @@ int MC_API_StopServer(SharedMemory_handle sm){
 /********  Start/Stop CLIENT ****/
 
 /*
- *
- * Returns MC_API_OK or
- * Returns MC_API_ERROR otherwise
+ * Returns pointer to Shared Memory handle
+ * Returns NULL otherwise.
  *
  */
 

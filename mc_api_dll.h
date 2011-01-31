@@ -63,8 +63,8 @@ int MC_API_StopServer(SharedMemory_handle sm);
 
 /*
  *
- * Returns MC_API_OK or
- * Returns MC_API_ERROR otherwise
+ * Returns pointer to shared memory structure
+ * Returns NULL otherwise
  *
  */
 
