@@ -11,11 +11,26 @@
 
 
 /*
+ * Start Server
+ *
  * To Be Used Only by MindControl
+ *
+ * The server has some unique properties. It does not wait to acquire a mutex.
+ * If it tries to access shared memory, and the memory is busy, it will simply return
+ * that the memory is busy.
+ *
+ * The server also has no refractory period. It can read or write in sequence
+ * as often as it wants. If the server reads repeatedly in a loop it oculd theoretically
+ * lock out other processes from accessing the shared memory, but thats ok, because its the server.
+ *
+ * By default the client has a 7ms refractory period.
+ * When the client reads from shared memory, the process
+ * sleeps for 7ms. This ensures that a client cannot lock up the shared memory
+ * A client will also wait up to 4ms to acquire a mutex lock.
+ *
  *
  * Returns handle to shared memory object
  * Returns NULL if there is an error
- *
  *
  *
  */
@@ -23,6 +38,9 @@ SharedMemory_handle  MC_API_StartServer(){
 
 	/* Create shared memory object */
 	SharedMemory_handle sm = ip_CreateSharedMemoryHost("mcMem");
+	ip_SetSharedMemoryLockWaitTime(sm, 0);
+
+	/** Set Refactory Period **/
 
 	/* Set Laser Controller to 0 */
 	int val=0;
@@ -47,6 +65,12 @@ int MC_API_StopServer(SharedMemory_handle sm){
 /*
  * Returns pointer to Shared Memory handle
  * Returns NULL otherwise.
+ *
+ * By default the client has a 7ms refractory period.
+ * When the client reads from shared memory, the process
+ * sleeps for 7ms. This ensures that a client cannot lock up the shared memory
+ * A client will also wait up to 4ms to acquire a mutex lock.
+
  *
  */
 
