@@ -40,7 +40,8 @@ SharedMemory_handle  MC_API_StartServer(){
 	SharedMemory_handle sm = ip_CreateSharedMemoryHost("mcMem");
 	ip_SetSharedMemoryLockWaitTime(sm, 0);
 
-	/** Set Refactory Period **/
+	/** Set Refactory Period to 0 **/
+	ip_SetSharedMemoryReadRefractoryPeriodTimeDelay(sm,0);
 
 	/* Set Laser Controller to 0 */
 	int val=0;
