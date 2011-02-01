@@ -120,7 +120,7 @@ int MC_API_isLaserControllerPresent(SharedMemory_handle sm);
  * Unregisters Laser Controller
  *
  */
-int MC_API_UnRegisterLaserController();
+int MC_API_UnRegisterLaserController(SharedMemory_handle sm);
 
 /*
  *  Set the Laser Power, an integer value between 1 and 100
