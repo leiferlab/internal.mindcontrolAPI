@@ -41,7 +41,7 @@ int main(){
 		int dlp=MC_API_GetDLPOnOff(sm);
 		printf("DLP is %d\n",dlp);
 	}
-
+	MC_API_UnRegisterLaserController(sm);
 	printf("Stopping client.. %d\n",MC_API_StopClient(sm));
 	printf("Goodbye!");
 
