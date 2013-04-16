@@ -1,3 +1,3 @@
 [submodule "InterProcess"]
 	path = InterProcess
-	url = git@github.com:samuellab/InterProcess.git
+	url = https://github.com/leiferlab/InterProcess.git
