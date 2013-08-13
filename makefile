@@ -1,5 +1,5 @@
 
-CXX=g++
+CXX=x86_64-w64-mingw32-g++.exe
 CXXFLAGS= -c -v -Wall -mwindows
 
 MC_API_targetdir=bin
@@ -16,12 +16,12 @@ samples: $(MC_API_targetdir)/mc_client.exe $(MC_API_targetdir)/mc_host.exe
 
 #Make the wrapper API
 mc_api_dll.o:  mc_api_dll.c mc_api_dll.h 
-	$(CXX) $(CXXFLAGS) -DBUILDING_MC_API_DLL mc_api_dll.c
+	$(CXX) $(CXXFLAGS) -DBUILDING_MC_API_DLL mc_api_dll.c 
 	
 	
 #Make the actual DLL
 $(MC_API_targetdir)/mc_api.dll: mc_api_dll.o $(IP_targetdir)/interprocess.o 
-	$(CXX) -shared -o $(MC_API_targetdir)/mc_api.dll mc_api_dll.o $(IP_targetdir)/interprocess.o -Wl,--out-implib,mc_api.a 
+	$(CXX) -shared -o $(MC_API_targetdir)/mc_api.dll mc_api_dll.o $(IP_targetdir)/interprocess.o -Wl,--out-implib,mc_api.a  $(LinkerWinAPILibObj)
 	
 #Make the underlying interprocess routine
 $(IP_targetdir)/interprocess.o: 
@@ -31,7 +31,7 @@ $(IP_targetdir)/interprocess.o:
 
 #Make the samples: host
 $(MC_API_targetdir)/mc_host.exe: $(MC_API_targetdir)/mc_api.dll mc_host.o
-	$(CXX) -o $(MC_API_targetdir)/mc_host.exe mc_host.o -L$(MC_API_targetdir) -lmc_api
+	$(CXX) -o $(MC_API_targetdir)/mc_host.exe mc_host.o -L$(MC_API_targetdir) -lmc_api $(LinkerWinAPILibObj)
 		
 
 mc_host.o: $(MC_API_sampledir)/mc_host.c
@@ -39,7 +39,7 @@ mc_host.o: $(MC_API_sampledir)/mc_host.c
 
 #Make the samples: client	
 $(MC_API_targetdir)/mc_client.exe: mc_client.o
-	$(CXX) -o $(MC_API_targetdir)/mc_client.exe mc_client.o -L$(MC_API_targetdir) -lmc_api	
+	$(CXX) -o $(MC_API_targetdir)/mc_client.exe mc_client.o -L$(MC_API_targetdir) -lmc_api	$(LinkerWinAPILibObj)
 
 mc_client.o: $(MC_API_sampledir)/mc_client.c
 	$(CXX) $(CXXFLAGS) $(MC_API_sampledir)/mc_client.c
